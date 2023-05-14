@@ -1,7 +1,7 @@
 #ufvjm
-#alunos: Eduardo Nogueira / Diogo Passos 
+# Diogo Passos Mota
 #----------------------------------------
-#verifique se os pacotes abaixo est„o devidamente instalados
+#verifique se os pacotes abaixo est√£o devidamente instalados
 library(shiny)
 library(shinythemes)
 library (tidyverse)
@@ -9,10 +9,10 @@ library (lubridate)
 library (DT)
 library(plotly)
 
-#cbamando o arquivo com os dados
+#chamando o arquivo com os dados
 file_data = "corona_data.csv"
 
-#configuraÁıes globais
+#configura√ß√µes globais
 tb_data =read_delim(file_data , delim = ";"  , col_types = cols())  %>% 
     mutate ( last_updated_hour =  floor_date (last_updated , unit = "hour") )
 
@@ -31,7 +31,7 @@ interval_choices = c(Dia ="1 day" , Semana ="1 week" , Mes ="1 month")
 
 
 
-# DefiniÁ„o do UI 
+# Defini√ß√£o do UI 
 ui <- fluidPage(
 
     theme = shinytheme("sandstone") ,
@@ -52,15 +52,15 @@ ui <- fluidPage(
     
 
     
-    textOutput("AtualizaÁ„o" ),
+    textOutput("Atualiza√ß√£o" ),
 
     sidebarLayout(
         sidebarPanel  (
 
           width = 2 ,
             selectInput("interval", label = "Intervalo" , choices = interval_choices  ) ,
-            selectInput("countries", label = "Regi„o", choices = tb_countries) ,
-            tags$strong( tags$p ("Pior situaÁ„o") ) ,
+            selectInput("countries", label = "Regi√£o", choices = tb_countries) ,
+            tags$strong( tags$p ("Pior situa√ß√£o") ) ,
             plotOutput("gg_bar_current" ,click = "plot_click" ,  dblclick = "plot_dblclick" )
         ) ,
         mainPanel( width = 9 ,
@@ -73,7 +73,7 @@ ui <- fluidPage(
     )   
 )
 
-# DefiniÁ„o do server
+# Defini√ß√£o do server
 server <- function(input, output, session) {
     
     
@@ -168,7 +168,7 @@ server <- function(input, output, session) {
     )
     
     
-    output$lastupdated = renderText( str_c("Ultima AtualizaÁ„o: " ,last_updated, collapse = T))
+    output$lastupdated = renderText( str_c("Ultima Atualiza√ß√£o: " ,last_updated, collapse = T))
     
 #painel do shiny------------------------------->
     output$result <- renderDataTable ({
@@ -184,7 +184,7 @@ server <- function(input, output, session) {
       
     })
 #Fim do painel shiny-------------------------->
-#Delete-o para desaparecer ( falta traduzir dos botıes do shiny)
+#Delete-o para desaparecer ( falta traduzir dos bot√µes do shiny)
     output$gg_evolution = renderPlotly (
         {
         
@@ -207,7 +207,7 @@ server <- function(input, output, session) {
                 interval == "1 month" ~ 15* 86400000.0  , 
                 TRUE ~ 2* 86400000.0
             )
-# acho que o plots sÛ interpreta em milessimos          
+# acho que o plots s√≥ interpreta em milessimos          
             
             x_title = case_when(
                 interval == "1 day" ~ "Date" ,
